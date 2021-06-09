@@ -5,6 +5,12 @@
 //  Created by Jason Dhindsa on 2021-05-12.
 //
 
+/*
+    Helpful articles:
+        1. https://www.linkedin.com/pulse/rotating-views-along-any-axis-swiftui-stephen-feuerstein/
+        2. https://betterprogramming.pub/how-to-build-a-rotation-animation-in-swiftui-e8fb889ccf7e
+ */
+
 import SwiftUI
 
 struct ContentView: View {
@@ -15,6 +21,9 @@ struct ContentView: View {
         GridItem(.flexible())
     ]
     @StateObject private var viewModel = GameViewModel()
+    var animation: Animation {
+        Animation.linear(duration: 0.75)
+    }
     
     // MARK: - BODY
     var body: some View {
@@ -25,12 +34,14 @@ struct ContentView: View {
                     ForEach(0..<ticTacToeSquares) { i in
                         ZStack {
                             Rectangle()
-                                .foregroundColor(Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)))
+                                .foregroundColor(viewModel.moves[i]?.selectedBoardIndex == i ? Color(#colorLiteral(red: 0.8980392157, green: 0.3490196078, blue: 0.2039215686, alpha: 1)) : Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)))
                                 .opacity(0.8)
                                 .frame(width: geometry.size.width/3-15, height: geometry.size.width/3-15, alignment: .center)
                                 .cornerRadius(7.5)
-                                .shadow(color: Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)).opacity(0.4), radius: 4, x: 2, y: 0)
-                            Image(systemName: viewModel.moves[i]?.indicator ?? "")
+                                .shadow(color: viewModel.moves[i]?.selectedBoardIndex == i ? Color(#colorLiteral(red: 0.8980392157, green: 0.3490196078, blue: 0.2039215686, alpha: 1)).opacity(0.4) : Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)).opacity(0.4), radius: 4, x: 2, y: 0)
+                                .rotation3DEffect(.degrees(viewModel.moves[i]?.selectedBoardIndex == i ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+                                .animation(animation)
+                            Image(systemName: viewModel.moves[i]?.indicator ?? "sun.max.circle")
                                 .resizable()
                                 .frame(width: 40, height: 40, alignment: .center)
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
@@ -75,9 +86,10 @@ struct ContentView: View {
         if !viewModel.isSquareOccupied(in: viewModel.moves, forIndex: index) {
             viewModel.moves[index] = Moves(selectedBoardIndex: index, player: .human)
             viewModel.isGameBoardDisabled = true
-            // Check for a human win...
+            // Check for a human win since the human player makes the 1st move
             if viewModel.checkForWin(player: .human, in: viewModel.moves) {
-                viewModel.alertItem = AlertContext.humanWin // Alerts automatically call resetGame()
+                // Alerts automatically call resetGame()
+                viewModel.alertItem = AlertContext.humanWin
             } else {
                 // Computer's move now...
                 let movesMadeCount = Set(viewModel.moves.compactMap { $0 }.compactMap { $0.selectedBoardIndex }).count
@@ -85,7 +97,8 @@ struct ContentView: View {
                     createComputerMove()
                 } else {
                     // Check for a human win since the human went last (9th move)
-                    let humanWin = viewModel.checkForWin(player: .human, in: viewModel.moves) // Alerts automatically call resetGame()
+                    let humanWin = viewModel.checkForWin(player: .human, in: viewModel.moves)
+                    // Alerts automatically call resetGame()
                     viewModel.alertItem = humanWin == true ? AlertContext.humanWin : AlertContext.draw
                 }
             }
@@ -93,7 +106,7 @@ struct ContentView: View {
     }
     
     func createComputerMove() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
             processGenerateNextComputerMoveAILogic()
         }
     }
