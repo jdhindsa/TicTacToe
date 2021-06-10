@@ -29,10 +29,8 @@ final class GameViewModel: ObservableObject {
         
         for winningSet in winningMoveCombos {
             if moveIndexSet.count > 3  && winningSet.isSubset(of: moveIndexSet) {
-                print("**** winning subset: \(winningSet) is a subset of \(moveIndexSet)")
                 isWinningSet = true
             } else if moveIndexSet.count <= 3 && moveIndexSet.isSubset(of: winningSet) && moveIndexSet == winningSet {
-                print("**** setToCheck: \(moveIndexSet) equals \(winningSet)")
                 isWinningSet = true
             }
         }
@@ -53,7 +51,6 @@ final class GameViewModel: ObservableObject {
         for winningSet in winningMoveCombos {
             let potentialHumanWinMove = winningSet.subtracting(humanMoves)
             if potentialHumanWinMove.count == 1 && !isSquareOccupied(in: self.moves, forIndex: potentialHumanWinMove.first!) {
-                print("**** winningSet \(winningSet), setToCheck \(humanMoves), potentialHumanWinMove \(potentialHumanWinMove)")
                 blockingMoves.append(potentialHumanWinMove.first!)
                 break
             }
@@ -66,7 +63,6 @@ final class GameViewModel: ObservableObject {
         for winningSet in winningMoveCombos {
             let potentialComputerWinMove = winningSet.subtracting(computerMoves)
             if potentialComputerWinMove.count == 1 && !isSquareOccupied(in: self.moves, forIndex: potentialComputerWinMove.first!) {
-                print("**** winningSet \(winningSet), setToCheck \(computerMoves), potentialComputerWinMove \(potentialComputerWinMove)")
                 winningMoves.append(potentialComputerWinMove.first!)
                 break
             }
@@ -93,11 +89,9 @@ final class GameViewModel: ObservableObject {
         let winningMoves = generateWinningMoves(computerMoves: computerMovesSet)
         
         if winningMoves.count > 0 {
-            print("Returning winning move \(nextComputerMove)")
             nextComputerMove = winningMoves.first!
         } else {
             let blockingMoves = generateBlockingMoves(humanMoves: humanMovesSet)
-            print("Returning blocking move")
             nextComputerMove = blockingMoves.count == 0 ?
                 generateRandomComputerMove(moves: moves) :
                 blockingMoves[Int.random(in: 0...blockingMoves.count-1)]

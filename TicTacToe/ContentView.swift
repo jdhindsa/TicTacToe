@@ -6,14 +6,15 @@
 //
 
 /*
-    Helpful articles:
-        1. https://www.linkedin.com/pulse/rotating-views-along-any-axis-swiftui-stephen-feuerstein/
-        2. https://betterprogramming.pub/how-to-build-a-rotation-animation-in-swiftui-e8fb889ccf7e
+ Helpful articles:
+ 1. https://www.linkedin.com/pulse/rotating-views-along-any-axis-swiftui-stephen-feuerstein/
+ 2. https://betterprogramming.pub/how-to-build-a-rotation-animation-in-swiftui-e8fb889ccf7e
  */
 
 import SwiftUI
 
 struct ContentView: View {
+
     // MARK: - PROPERTIES
     let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -34,17 +35,27 @@ struct ContentView: View {
                     ForEach(0..<ticTacToeSquares) { i in
                         ZStack {
                             Rectangle()
-                                .foregroundColor(viewModel.moves[i]?.selectedBoardIndex == i ? Color(#colorLiteral(red: 0.8980392157, green: 0.3490196078, blue: 0.2039215686, alpha: 1)) : Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)))
+                                .foregroundColor(shouldFlipCard(index: i) ? Color(#colorLiteral(red: 0.8980392157, green: 0.3490196078, blue: 0.2039215686, alpha: 1)) : Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)))
                                 .opacity(0.8)
                                 .frame(width: geometry.size.width/3-15, height: geometry.size.width/3-15, alignment: .center)
                                 .cornerRadius(7.5)
-                                .shadow(color: viewModel.moves[i]?.selectedBoardIndex == i ? Color(#colorLiteral(red: 0.8980392157, green: 0.3490196078, blue: 0.2039215686, alpha: 1)).opacity(0.4) : Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)).opacity(0.4), radius: 4, x: 2, y: 0)
-                                .rotation3DEffect(.degrees(viewModel.moves[i]?.selectedBoardIndex == i ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+                                .shadow(
+                                    color: shouldFlipCard(index: i) ?
+                                        Color(#colorLiteral(red: 0.8980392157, green: 0.3490196078, blue: 0.2039215686, alpha: 1)).opacity(0.4) :
+                                        Color(#colorLiteral(red: 0.6078431373, green: 0.7725490196, blue: 0.2392156863, alpha: 1)).opacity(0.4), radius: 4, x: 2, y: 0)
+                                .rotation3DEffect(.degrees(shouldFlipCard(index: i) ? 180 : 0), axis: (x: 0, y: 1, z: 0))
                                 .animation(animation)
-                            Image(systemName: viewModel.moves[i]?.indicator ?? "sun.max.circle")
-                                .resizable()
-                                .frame(width: 40, height: 40, alignment: .center)
-                                .font(.system(size: 50, weight: .bold, design: .rounded))
+                            Image(systemName:
+                                    shouldFlipCard(index: i) ?
+                                    viewModel.moves[i]?.indicator ?? "pencil.circle.fill" :
+                                    "square.and.arrow.down.fill"
+                            )
+                            .resizable()
+                            .frame(width: 40, height: 40, alignment: .center)
+                            .font(.system(size: 50, weight: .bold, design: .rounded))
+                            .opacity(
+                                shouldFlipCard(index: i) ? 1.0 : 0.0
+                            )
                         }//: ZSTACK
                         .onTapGesture {
                             processMove(index: i)
@@ -70,17 +81,21 @@ struct ContentView: View {
     // MARK - FUNCTIONS
     
     /*
-        Moves Order:
-        1 - Human
-        2 - Computer
-        3 - Human
-        4 - Computer
-        5 - Human
-        6 - Computer
-        7 - Human
-        8 - Computer
-        9 - Human
-    */
+     Moves Order:
+     1 - Human
+     2 - Computer
+     3 - Human
+     4 - Computer
+     5 - Human
+     6 - Computer
+     7 - Human
+     8 - Computer
+     9 - Human
+     */
+    
+    func shouldFlipCard(index: Int) -> Bool {
+        return viewModel.moves[index]?.selectedBoardIndex == index ? true : false
+    }
     
     func processMove(index: Int) {
         if !viewModel.isSquareOccupied(in: viewModel.moves, forIndex: index) {
