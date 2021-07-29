@@ -69,6 +69,7 @@ struct ScorecardView: View {
         }//: ZSTACK
         .padding(.top, 75)
         .padding(.horizontal, 20)
+
     }//: BODY
 }
 

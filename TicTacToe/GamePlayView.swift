@@ -31,7 +31,6 @@ struct GamePlayView: View {
     @State var shouldShowScorecard = false
     @Binding var isAIPlayer: Bool
     @State var humanVsHumanTotalMoves = 0
-    var ticTacToeSquares = 9
     
     let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -99,6 +98,7 @@ struct GamePlayView: View {
                         title: alertItem.title,
                         message: alertItem.message,
                         dismissButton: .default(alertItem.buttonTitle, action: {
+                            self.shouldShowScorecard = true
                             viewModel.resetGame()
                         }))
                 })
@@ -134,7 +134,7 @@ struct GamePlayView: View {
                 if movesMadeCount < ticTacToeSquares {
                     createComputerMove()
                 } else {
-                    // Check for a p1 win since the human went last (9th move)
+                    // Check for a p1 win since p1 went last (9th move)
                     let p1Win = viewModel.checkForWin(player: .p1, in: viewModel.moves)
                     // Alerts automatically call resetGame()
                     if p1Win {
@@ -162,23 +162,18 @@ struct GamePlayView: View {
             
             if humanVsHumanTotalMoves < ticTacToeSquares && humanVsHumanTotalMoves % 2 != 0 && viewModel.checkForWin(player: .p1, in: viewModel.moves) {
                 viewModel.alertItem = AlertContext.p1Win // Alerts automatically call resetGame()
-                shouldShowScorecard = true
                 p1TotalWins += 1
                 humanVsHumanTotalMoves = 0
             } else if humanVsHumanTotalMoves < ticTacToeSquares && humanVsHumanTotalMoves % 2 == 0 && viewModel.checkForWin(player: .p2, in: viewModel.moves){
                 viewModel.alertItem = AlertContext.p2Win // Alerts automatically call resetGame()
-                shouldShowScorecard = true
                 p2TotalWins += 1
                 humanVsHumanTotalMoves = 0
             } else if humanVsHumanTotalMoves == ticTacToeSquares && viewModel.checkForWin(player: .p1, in: viewModel.moves) {
-                // p1 makes the 9th and final move.
                 viewModel.alertItem = AlertContext.p1Win // Alerts automatically call resetGame()
-                shouldShowScorecard = true
                 p1TotalWins += 1
                 humanVsHumanTotalMoves = 0
             } else if humanVsHumanTotalMoves == ticTacToeSquares && !viewModel.checkForWin(player: .p1, in: viewModel.moves) {
                 viewModel.alertItem = AlertContext.draw // Alerts automatically call resetGame()
-                shouldShowScorecard = true
                 tiedGames += 1
                 humanVsHumanTotalMoves = 0
             }
