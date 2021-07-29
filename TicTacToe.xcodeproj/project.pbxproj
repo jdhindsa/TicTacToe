@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		340F75ED269927F5005DCA0B /* ScorecardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340F75EC269927F5005DCA0B /* ScorecardView.swift */; };
 		34226D282651B567003709D1 /* PlayerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34226D272651B567003709D1 /* PlayerSymbols.swift */; };
 		34226D2C2651BDEC003709D1 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34226D2B2651BDEC003709D1 /* Alerts.swift */; };
 		3436C7EC26528B8300703B28 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3436C7EB26528B8300703B28 /* GameViewModel.swift */; };
 		34409322265070BF004C1E40 /* Moves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34409321265070BF004C1E40 /* Moves.swift */; };
 		344EB38E267D762D00A2573A /* GameTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344EB38D267D762D00A2573A /* GameTypeView.swift */; };
 		345173F6264C8B40004CCF33 /* TicTacToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345173F5264C8B40004CCF33 /* TicTacToeApp.swift */; };
-		345173F8264C8B40004CCF33 /* HvCGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345173F7264C8B40004CCF33 /* HvCGameView.swift */; };
+		345173F8264C8B40004CCF33 /* GamePlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345173F7264C8B40004CCF33 /* GamePlayView.swift */; };
 		345173FA264C8B42004CCF33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345173F9264C8B42004CCF33 /* Assets.xcassets */; };
 		345173FD264C8B42004CCF33 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345173FC264C8B42004CCF33 /* Preview Assets.xcassets */; };
 		3451740D264C907B004CCF33 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3451740C264C907B004CCF33 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		340F75EC269927F5005DCA0B /* ScorecardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorecardView.swift; sourceTree = "<group>"; };
 		34226D272651B567003709D1 /* PlayerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSymbols.swift; sourceTree = "<group>"; };
 		34226D2B2651BDEC003709D1 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		3436C7EB26528B8300703B28 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
@@ -27,7 +29,7 @@
 		344EB38D267D762D00A2573A /* GameTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTypeView.swift; sourceTree = "<group>"; };
 		345173F2264C8B40004CCF33 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		345173F5264C8B40004CCF33 /* TicTacToeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeApp.swift; sourceTree = "<group>"; };
-		345173F7264C8B40004CCF33 /* HvCGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HvCGameView.swift; sourceTree = "<group>"; };
+		345173F7264C8B40004CCF33 /* GamePlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayView.swift; sourceTree = "<group>"; };
 		345173F9264C8B42004CCF33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		345173FC264C8B42004CCF33 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		345173FE264C8B42004CCF33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,7 +68,7 @@
 			children = (
 				34517409264C8E28004CCF33 /* App */,
 				345173F9264C8B42004CCF33 /* Assets.xcassets */,
-				345173F7264C8B40004CCF33 /* HvCGameView.swift */,
+				345173F7264C8B40004CCF33 /* GamePlayView.swift */,
 				3451740B264C906E004CCF33 /* Data */,
 				345173FE264C8B42004CCF33 /* Info.plist */,
 				347317BE2657114F008C6B79 /* Model */,
@@ -87,6 +89,7 @@
 		34517408264C8E1E004CCF33 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				340F75EC269927F5005DCA0B /* ScorecardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,9 +193,10 @@
 			files = (
 				34226D282651B567003709D1 /* PlayerSymbols.swift in Sources */,
 				3451740D264C907B004CCF33 /* Player.swift in Sources */,
-				345173F8264C8B40004CCF33 /* HvCGameView.swift in Sources */,
+				345173F8264C8B40004CCF33 /* GamePlayView.swift in Sources */,
 				34409322265070BF004C1E40 /* Moves.swift in Sources */,
 				344EB38E267D762D00A2573A /* GameTypeView.swift in Sources */,
+				340F75ED269927F5005DCA0B /* ScorecardView.swift in Sources */,
 				34226D2C2651BDEC003709D1 /* Alerts.swift in Sources */,
 				345173F6264C8B40004CCF33 /* TicTacToeApp.swift in Sources */,
 				3436C7EC26528B8300703B28 /* GameViewModel.swift in Sources */,
@@ -325,7 +329,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TicTacToe/Preview Content\"";
-				DEVELOPMENT_TEAM = JE6J8W7UM9;
+				DEVELOPMENT_TEAM = U82U639K29;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -333,7 +337,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codingwithjay.TicTacToe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appsbyJ.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -347,7 +351,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TicTacToe/Preview Content\"";
-				DEVELOPMENT_TEAM = JE6J8W7UM9;
+				DEVELOPMENT_TEAM = U82U639K29;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -355,7 +359,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.codingwithjay.TicTacToe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appsbyJ.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

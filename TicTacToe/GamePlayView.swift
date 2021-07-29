@@ -13,7 +13,7 @@
 
 import SwiftUI
 
-struct HvCGameView: View {
+struct GamePlayView: View {
     
     // MARK: - PROPERTIES
     @State var compWins = 0
@@ -172,7 +172,7 @@ struct HvCGameView: View {
 // MARK: - PREVIEW
 struct HumanVsComputer_Previews: PreviewProvider {
     static var previews: some View {
-        HvCGameView(computerPlayer: .constant(true))
+        GamePlayView(computerPlayer: .constant(true))
     }
 }
 
