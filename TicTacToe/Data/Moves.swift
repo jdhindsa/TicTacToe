@@ -11,7 +11,7 @@ struct Moves {
     var selectedBoardIndex: Int
     var player: Player
     var indicator: String {
-        return player == .human ? PlayerSymbols.x_symbol.rawValue : PlayerSymbols.o_symbol.rawValue
+        return player == .p1 ? PlayerSymbols.x_symbol.rawValue : PlayerSymbols.o_symbol.rawValue
     }
 }
 

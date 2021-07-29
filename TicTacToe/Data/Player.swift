@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+//enum Player {
+//    case human
+//    case computer
+//}
+
 enum Player {
-    case human
-    case computer
+    case p1
+    case p2
 }
-
-

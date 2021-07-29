@@ -15,15 +15,15 @@ struct AlertItem: Identifiable {
 }
 
 struct AlertContext {
-    static let humanWin = AlertItem(
-        title: Text("You win!"),
-        message: Text("You are so smart! You beat the computer!"),
-        buttonTitle: Text("Hell Yeah Mother Fucker!")
+    static let p1Win = AlertItem(
+        title: Text("Player 1 wins!"),
+        message: Text("You are so smart!"),
+        buttonTitle: Text("Finish")
     )
-    static let computerWin = AlertItem(
-        title: Text("You lost!"),
-        message: Text("You programmed a super AI!"),
-        buttonTitle: Text("Rematch?")
+    static let p2Win = AlertItem(
+        title: Text("Player 2 wins!"),
+        message: Text("Awesome job!"),
+        buttonTitle: Text("Finish")
     )
     static let draw = AlertItem(
         title: Text("Draw!"),
@@ -32,5 +32,5 @@ struct AlertContext {
     )
 }
 
-// To use it:
+// Usage:
 //alertItem = AlertContext.humanWin

@@ -21,11 +21,10 @@ final class GameViewModel: ObservableObject {
     var winningMoveCombos: Set<Set<Int>> = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
     
     func checkForWin(player: Player, in moves: [Moves?]) -> (Bool) {
-        
         var isWinningSet = false
-        let moveIndexSet = player == .human ?
-            Set(moves.compactMap{$0}.filter { $0.player == .human }.compactMap { $0.selectedBoardIndex }) :
-            Set(moves.compactMap{$0}.filter { $0.player == .computer }.compactMap { $0.selectedBoardIndex })
+        let moveIndexSet = player == .p1 ?
+            Set(moves.compactMap{$0}.filter { $0.player == .p1 }.compactMap { $0.selectedBoardIndex }) :
+            Set(moves.compactMap{$0}.filter { $0.player == .p2 }.compactMap { $0.selectedBoardIndex })
         
         for winningSet in winningMoveCombos {
             if moveIndexSet.count > 3  && winningSet.isSubset(of: moveIndexSet) {
@@ -82,8 +81,8 @@ final class GameViewModel: ObservableObject {
         
         var nextComputerMove: Int = 0
         
-        let humanMovesSet = Set(moves.compactMap { $0 }.filter { $0.player == .human }.compactMap { $0.selectedBoardIndex })
-        let computerMovesSet = Set(moves.compactMap { $0 }.filter { $0.player == .computer }.compactMap { $0.selectedBoardIndex })
+        let humanMovesSet = Set(moves.compactMap { $0 }.filter { $0.player == .p1 }.compactMap { $0.selectedBoardIndex })
+        let computerMovesSet = Set(moves.compactMap { $0 }.filter { $0.player == .p2 }.compactMap { $0.selectedBoardIndex })
         
         // Need to first check if the computer can make a winning move...
         let winningMoves = generateWinningMoves(computerMoves: computerMovesSet)
