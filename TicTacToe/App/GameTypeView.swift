@@ -25,7 +25,7 @@ struct GameTypeView: View {
                     NavigationLink(destination: GamePlayView(isAIPlayer: .constant(true))) {
                         ButtonView(
                             buttonTitle: "Human vs Computer",
-                            backgroundColor: Color(UIColor(named: "darkBlue")!),
+                            backgroundColor: Color(UIColor(named: "red")!),
                             foregroundColor: Color(UIColor(named: "cream")!)
                         )
                     }//: NAV LINK
@@ -47,6 +47,12 @@ struct GameTypeView: View {
     }
 }
 
+struct GameTypeView_Previews: PreviewProvider {
+    static var previews: some View {
+        GameTypeView()
+    }
+}
+
 struct TitleView: View {
     // MARK: - PROPERTIES
     var title: String
@@ -58,6 +64,16 @@ struct TitleView: View {
             .font(.system(size: 25, weight: .bold, design: .rounded))
             .foregroundColor(foregroundColor)
             .padding(.top, 90)
+    }
+}
+
+struct TitleView_Previews: PreviewProvider {
+    static var previews: some View {
+        TitleView(
+            title: "Choose your Game Type:",
+            foregroundColor: Color(UIColor(named: "darkBlue")!)
+        )
+        .previewLayout(.fixed(width: 500, height: 300))
     }
 }
 
@@ -84,8 +100,14 @@ struct ButtonView: View {
     }
 }
 
-struct ChooseGameType_Previews: PreviewProvider {
+struct ButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        GameTypeView()
+        ButtonView(
+            buttonTitle: "This is just a test",
+            backgroundColor: Color(UIColor(named: "red")!),
+            foregroundColor: Color(UIColor(named: "cream")!))
+            .previewLayout(.fixed(width: 300, height: 100))
     }
 }
+
+

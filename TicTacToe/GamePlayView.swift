@@ -5,13 +5,6 @@
 //  Created by Jason Dhindsa on 2021-05-12.
 //
 
-/*
-    Features to add:
-    1) Ability to select a user to play with (ie. save and retrieve user data)
-    2) See statistics versus the computer AND vs other players
-    3)
-*/
-
 import SwiftUI
 
 let screen = UIScreen.main.bounds
@@ -65,7 +58,7 @@ struct GamePlayView: View {
                             ZStack {
                                 Circle()
                                     .foregroundColor(
-                                        shouldFlipCard(index: i) ?
+                                        shouldFlipSquare(index: i) ?
                                             Color(UIColor(named: "orange")!) :
                                             Color(UIColor(named: "red")!)
                                     )
@@ -73,22 +66,22 @@ struct GamePlayView: View {
                                     .frame(width: geometry.size.width/3-15, height: geometry.size.width/3-15, alignment: .center)
                                     .cornerRadius(7.5)
                                     .shadow(
-                                        color: shouldFlipCard(index: i) ?
+                                        color: shouldFlipSquare(index: i) ?
                                             Color(UIColor(named: "orange")!).opacity(0.80) :
                                             Color(UIColor(named: "red")!).opacity(0.80), radius: 4, x: 2, y: 0)
-                                    .rotation3DEffect(.degrees(shouldFlipCard(index: i) ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+                                    .rotation3DEffect(.degrees(shouldFlipSquare(index: i) ? 180 : 0), axis: (x: 0, y: 1, z: 0))
                                     .animation(animation)
                                 Image(systemName:
-                                        shouldFlipCard(index: i) ?
+                                        shouldFlipSquare(index: i) ?
                                         viewModel.moves[i]?.indicator ?? "pencil.circle.fill" :
                                         "square.and.arrow.down.fill"
-                                )
+                                )//: Image
                                 .resizable()
                                 .foregroundColor(Color(UIColor(named: "reallyDarkBlue")!))
                                 .frame(width: 35, height: 35, alignment: .center)
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
                                 .opacity(
-                                    shouldFlipCard(index: i) ? 1.0 : 0.0
+                                    shouldFlipSquare(index: i) ? 1.0 : 0.0
                                 )
                             }//: ZSTACK
                             .onTapGesture {
@@ -121,7 +114,7 @@ struct GamePlayView: View {
     }//: BODY
     
     // MARK - FUNCTIONS
-    func shouldFlipCard(index: Int) -> Bool {
+    func shouldFlipSquare(index: Int) -> Bool {
         return viewModel.moves[index]?.selectedBoardIndex == index ? true : false
     }
     
@@ -169,23 +162,23 @@ struct GamePlayView: View {
             
             if humanVsHumanTotalMoves < ticTacToeSquares &&
                 humanVsHumanTotalMoves % 2 != 0 && viewModel.checkForWin(player: .p1, in: viewModel.moves) {
-                viewModel.alertItem = AlertContext.p1Win // Alerts automatically call resetGame()
+                viewModel.alertItem = AlertContext.p1Win
                 p1TotalWins += 1
                 humanVsHumanTotalMoves = 0
             } else if humanVsHumanTotalMoves < ticTacToeSquares &&
                         humanVsHumanTotalMoves % 2 == 0 &&
                         viewModel.checkForWin(player: .p2, in: viewModel.moves){
-                viewModel.alertItem = AlertContext.p2Win // Alerts automatically call resetGame()
+                viewModel.alertItem = AlertContext.p2Win
                 p2TotalWins += 1
                 humanVsHumanTotalMoves = 0
             } else if humanVsHumanTotalMoves == ticTacToeSquares &&
                         viewModel.checkForWin(player: .p1, in: viewModel.moves) {
-                viewModel.alertItem = AlertContext.p1Win // Alerts automatically call resetGame()
+                viewModel.alertItem = AlertContext.p1Win
                 p1TotalWins += 1
                 humanVsHumanTotalMoves = 0
             } else if humanVsHumanTotalMoves == ticTacToeSquares &&
                         !viewModel.checkForWin(player: .p1, in: viewModel.moves) {
-                viewModel.alertItem = AlertContext.draw // Alerts automatically call resetGame()
+                viewModel.alertItem = AlertContext.draw
                 tiedGames += 1
                 humanVsHumanTotalMoves = 0
             }
