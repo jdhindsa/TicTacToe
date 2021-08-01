@@ -13,20 +13,20 @@ struct GameTypeView: View {
             HStack {
                 Spacer()
                 VStack {
-                    TitleView(title: "Choose your Game Type:", foregroundColor: Color(#colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1)))
+                    TitleView(title: "Choose your Game Type:", foregroundColor: Color(UIColor(named: "darkBlue")!))
                     NavigationLink(destination: GamePlayView(isAIPlayer: .constant(false))) {
                         ButtonView(
                             buttonTitle: "Human vs Human",
-                            backgroundColor: Color(#colorLiteral(red: 0.9921568627, green: 1, blue: 0.7137254902, alpha: 1)),
-                            textColor: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+                            backgroundColor: Color(UIColor(named: "orange")!),
+                            foregroundColor: Color(UIColor(named: "darkBlue")!)
                         )
                     }//: NAV LINK
-                    .padding(.top, 25)
+                    .padding(.top, 10)
                     NavigationLink(destination: GamePlayView(isAIPlayer: .constant(true))) {
                         ButtonView(
                             buttonTitle: "Human vs Computer",
-                            backgroundColor: Color(#colorLiteral(red: 0.9019607843, green: 0.2235294118, blue: 0.2745098039, alpha: 1)),
-                            textColor: Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+                            backgroundColor: Color(UIColor(named: "darkBlue")!),
+                            foregroundColor: Color(UIColor(named: "cream")!)
                         )
                     }//: NAV LINK
                     .padding(.top, 10)
@@ -40,10 +40,10 @@ struct GameTypeView: View {
                 .navigationBarTitle("")
                 Spacer()
             }//: HSTACK
-            .background(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)))
+            .background(Color(UIColor(named: "cream")!))
             .edgesIgnoringSafeArea(.all)
         }//: NAVIGATION VIEW
-        .accentColor(Color(#colorLiteral(red: 0.9921568627, green: 1, blue: 0.7137254902, alpha: 1)))
+        .accentColor(Color(UIColor(named: "red")!))
     }
 }
 
@@ -65,7 +65,7 @@ struct ButtonView: View {
     // MARK: - PROPERTIES
     var buttonTitle: String
     var backgroundColor: Color
-    var textColor: Color
+    var foregroundColor: Color
     
     // MARK: - BODY
     var body: some View {
@@ -73,7 +73,7 @@ struct ButtonView: View {
             .frame(minWidth: 0, maxWidth: 300)
             .frame(height: 50)
             .background(backgroundColor)
-            .foregroundColor(textColor)
+            .foregroundColor(foregroundColor)
             .cornerRadius(15)
             .padding()
             .font(.system(size: 20, weight: .semibold, design: .rounded))

@@ -14,12 +14,17 @@ struct ScorecardView: View {
     @Binding var draws: Int
     @Binding var shouldShowScorecard: Bool
     @Binding var isP2Computer: Bool
+    @State var dismissScorecard = false
+    
+    var animation: Animation {
+        Animation.linear(duration: 0.25)
+    }
     
     // MARK: - BODY
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color(#colorLiteral(red: 0.9921568627, green: 1, blue: 0.7137254902, alpha: 1)))
+                .fill(Color(UIColor(named: "red")!))
                 .frame(width: screen.width - 40, height: 100)
                 .cornerRadius(8.0)
             VStack(alignment: .leading) {
@@ -49,20 +54,24 @@ struct ScorecardView: View {
                 .padding(.horizontal, 20)
             }//: VSTACK
             .padding(.horizontal, 25)
-            .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
+            .foregroundColor(Color(UIColor(named: "cream")!))
 
             Button(action: {
                 self.shouldShowScorecard = false
+                self.dismissScorecard = true
             }) {
                 ZStack {
                     Circle()
                         .fill()
-                        .foregroundColor(Color(#colorLiteral(red: 0.7411764706, green: 0.6980392157, blue: 1, alpha: 1)))
+                        .foregroundColor(Color(UIColor(named: "orange")!))
                         .frame(width: 44, height: 44, alignment: .center)
+
                     Text("X")
                         .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                }
+                        .foregroundColor(Color(UIColor(named: "cream")!))
+                }//: ZSTACK
+                .rotation3DEffect(.degrees(dismissScorecard ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+                .animation(animation)
             }//: BUTTON
             .padding(.top, 30)
             .offset(x: screen.width/2 - 27, y: -65)

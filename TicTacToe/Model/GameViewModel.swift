@@ -18,7 +18,16 @@ final class GameViewModel: ObservableObject {
     @Published var isGameBoardDisabled = false
     @Published var alertItem: AlertItem?
     var squarePositions: Set<Int> = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    var winningMoveCombos: Set<Set<Int>> = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    var winningMoveCombos: Set<Set<Int>> = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
     
     func checkForWin(player: Player, in moves: [Moves?]) -> (Bool) {
         var isWinningSet = false

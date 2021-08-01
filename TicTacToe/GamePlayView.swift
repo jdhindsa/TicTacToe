@@ -6,10 +6,11 @@
 //
 
 /*
- Helpful articles:
- 1. https://www.linkedin.com/pulse/rotating-views-along-any-axis-swiftui-stephen-feuerstein/
- 2. https://betterprogramming.pub/how-to-build-a-rotation-animation-in-swiftui-e8fb889ccf7e
- */
+    Features to add:
+    1) Ability to select a user to play with (ie. save and retrieve user data)
+    2) See statistics versus the computer AND vs other players
+    3)
+*/
 
 import SwiftUI
 
@@ -31,13 +32,14 @@ struct GamePlayView: View {
     @State var shouldShowScorecard = false
     @Binding var isAIPlayer: Bool
     @State var humanVsHumanTotalMoves = 0
+    @StateObject private var viewModel = GameViewModel()
     
     let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    @StateObject private var viewModel = GameViewModel()
+    
     var animation: Animation {
         Animation.linear(duration: 0.75)
     }
@@ -55,21 +57,25 @@ struct GamePlayView: View {
             )
             .offset(x: shouldShowScorecard ? 0.0 : screen.width,
                     y: 100.0) // Need to figure out the y-position based on the Nav Bar height!
-            .animation(.easeInOut(duration: 0.5))
+            .animation(.easeInOut(duration: 1.0))
             GeometryReader { geometry in
                 VStack {
                     LazyVGrid(columns: columns, spacing: 5) {
                         ForEach(0..<ticTacToeSquares) { i in
                             ZStack {
-                                Rectangle()
-                                    .foregroundColor(shouldFlipCard(index: i) ? Color(#colorLiteral(red: 0.7411764706, green: 0.6980392157, blue: 1, alpha: 1)) : Color(#colorLiteral(red: 0.9921568627, green: 1, blue: 0.7137254902, alpha: 1)))
-                                    .opacity(0.8)
+                                Circle()
+                                    .foregroundColor(
+                                        shouldFlipCard(index: i) ?
+                                            Color(UIColor(named: "orange")!) :
+                                            Color(UIColor(named: "red")!)
+                                    )
+                                    .opacity(1.0)
                                     .frame(width: geometry.size.width/3-15, height: geometry.size.width/3-15, alignment: .center)
                                     .cornerRadius(7.5)
                                     .shadow(
                                         color: shouldFlipCard(index: i) ?
-                                            Color(#colorLiteral(red: 0.7411764706, green: 0.6980392157, blue: 1, alpha: 1)).opacity(0.4) :
-                                            Color(#colorLiteral(red: 0.9921568627, green: 1, blue: 0.7137254902, alpha: 1)).opacity(0.4), radius: 4, x: 2, y: 0)
+                                            Color(UIColor(named: "orange")!).opacity(0.80) :
+                                            Color(UIColor(named: "red")!).opacity(0.80), radius: 4, x: 2, y: 0)
                                     .rotation3DEffect(.degrees(shouldFlipCard(index: i) ? 180 : 0), axis: (x: 0, y: 1, z: 0))
                                     .animation(animation)
                                 Image(systemName:
@@ -78,6 +84,7 @@ struct GamePlayView: View {
                                         "square.and.arrow.down.fill"
                                 )
                                 .resizable()
+                                .foregroundColor(Color(UIColor(named: "reallyDarkBlue")!))
                                 .frame(width: 35, height: 35, alignment: .center)
                                 .font(.system(size: 50, weight: .bold, design: .rounded))
                                 .opacity(
@@ -103,7 +110,7 @@ struct GamePlayView: View {
                         }))
                 })
                 .onAppear {
-                    self.gameboardBackground = Color(#colorLiteral(red: 0.9019607843, green: 0.2235294118, blue: 0.2745098039, alpha: 1))
+                    self.gameboardBackground = Color(UIColor(named: "cream")!)
                 }
             }//: GEOMETRY READER
             .padding(.top, 100)
@@ -160,19 +167,24 @@ struct GamePlayView: View {
             }
             humanVsHumanTotalMoves += 1
             
-            if humanVsHumanTotalMoves < ticTacToeSquares && humanVsHumanTotalMoves % 2 != 0 && viewModel.checkForWin(player: .p1, in: viewModel.moves) {
+            if humanVsHumanTotalMoves < ticTacToeSquares &&
+                humanVsHumanTotalMoves % 2 != 0 && viewModel.checkForWin(player: .p1, in: viewModel.moves) {
                 viewModel.alertItem = AlertContext.p1Win // Alerts automatically call resetGame()
                 p1TotalWins += 1
                 humanVsHumanTotalMoves = 0
-            } else if humanVsHumanTotalMoves < ticTacToeSquares && humanVsHumanTotalMoves % 2 == 0 && viewModel.checkForWin(player: .p2, in: viewModel.moves){
+            } else if humanVsHumanTotalMoves < ticTacToeSquares &&
+                        humanVsHumanTotalMoves % 2 == 0 &&
+                        viewModel.checkForWin(player: .p2, in: viewModel.moves){
                 viewModel.alertItem = AlertContext.p2Win // Alerts automatically call resetGame()
                 p2TotalWins += 1
                 humanVsHumanTotalMoves = 0
-            } else if humanVsHumanTotalMoves == ticTacToeSquares && viewModel.checkForWin(player: .p1, in: viewModel.moves) {
+            } else if humanVsHumanTotalMoves == ticTacToeSquares &&
+                        viewModel.checkForWin(player: .p1, in: viewModel.moves) {
                 viewModel.alertItem = AlertContext.p1Win // Alerts automatically call resetGame()
                 p1TotalWins += 1
                 humanVsHumanTotalMoves = 0
-            } else if humanVsHumanTotalMoves == ticTacToeSquares && !viewModel.checkForWin(player: .p1, in: viewModel.moves) {
+            } else if humanVsHumanTotalMoves == ticTacToeSquares &&
+                        !viewModel.checkForWin(player: .p1, in: viewModel.moves) {
                 viewModel.alertItem = AlertContext.draw // Alerts automatically call resetGame()
                 tiedGames += 1
                 humanVsHumanTotalMoves = 0
